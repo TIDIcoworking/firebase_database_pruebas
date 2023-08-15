@@ -170,7 +170,7 @@ class EditUserPage extends ConsumerWidget {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => UsersListPage(),
+                            builder: (context) => const UsersListPage(),
                           ),
                           (route) => false,
                         );

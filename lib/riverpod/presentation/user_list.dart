@@ -18,8 +18,6 @@ class UsersListPage extends ConsumerWidget {
     final searchController = TextEditingController(text: searchTerm);
     searchController.selection = TextSelection.fromPosition(
       TextPosition(offset: searchController.text.length));
-    DocumentSnapshot? lastDocument;
-    int documentsPerPage = 5;
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +55,7 @@ class UsersListPage extends ConsumerWidget {
           ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: userService.getUsers(documentsPerPage, lastDocument),
+              stream: userService.getUsers(searchTerm),
               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
                   return const Text('Error al cargar los datos');

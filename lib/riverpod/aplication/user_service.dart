@@ -9,24 +9,24 @@ final userServiceProvider = Provider.autoDispose<UserService>(
 
 class UserService {
   final UserRepository _userRepository;
-  final int documentsPerPage = 10;
+  final int documentsPerPage = 5;
 
   UserService(this._userRepository);
   
   /*Stream<QuerySnapshot> getUsers() {
     return _userRepository.getUsers();
   }*/
-  Stream<QuerySnapshot> getUsers(int documentsPerPage, DocumentSnapshot? lastDocument) {
+  Stream<QuerySnapshot> getUsers(String searchTerm) {
   Query query = _userRepository.usersCollection
       .orderBy('name')
+      .where('name', isGreaterThanOrEqualTo: searchTerm)
+      .where('name', isLessThan: '${searchTerm}z')
       .limit(documentsPerPage);
-
-  if (lastDocument != null) {
-    query = query.startAfter([lastDocument['name']]);
+    if (_userRepository.lastDocument != null) {
+      query = query.startAfter([_userRepository.lastDocument!['name']]);
+    }
+    return query.snapshots();
   }
-
-  return query.snapshots();
-}
 
   Future<void> addUser(Map<String, dynamic> userData) {
     return _userRepository.addUser(userData);
@@ -40,5 +40,3 @@ class UserService {
     return _userRepository.updateUser(userId, userData);
   }
 }
-
-
