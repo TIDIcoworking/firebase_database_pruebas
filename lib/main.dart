@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ejemploaa/CRUD/list_page.dart';
 import 'package:ejemploaa/app_crud.dart';
+import 'package:ejemploaa/auth/presentation/auth_screen.dart';
 import 'package:ejemploaa/crud_two/main_page.dart';
 import 'package:ejemploaa/firebase_crud/home.dart';
 import 'package:ejemploaa/riverpod/presentation/user_list.dart';
@@ -34,8 +35,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.yellow,
         ),
         routes: {
-          'read': (BuildContext context) => UsersListPage(),
-          //'read': (BuildContext context) => UsersScreen(),
+          //'read': (BuildContext context) => const UsersListPage(),
+          'read': (BuildContext context) => const AuthScreen(),
           //'read': (BuildContext context) => UserListPage(),
 
         },
